@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATSHOP 032</title>
+</head>
+
+<body>
+    <h1>CATSHOP 032</h1>
+    <h3>CAT FORM</h3>
+    <hr>
+    <form action="" method="post">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name_032" value="<%= data.name_032 %>" required></td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td><select name="type_032" required>
+                        <option value="">Choose type</option>
+                        <!-- < category.forEach(cate => { %>
+                            <option value="<= cate.category_name_032 %>" <= type == cate.category_name_032 ? 'selected' : '' %>><= cate.category_name_032 %></option>
+                        < }) %> -->
+                        <option value="Domestic">Domestic</option>
+                        <option value="Angora">Angora</option>
+                        <option value="Persia">Persia</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" name="gender_032" value="Male" <%= data.gender_032 == 'Male' ? 'checked' : '' %> required>Male
+                    <input type="radio" name="gender_032" value="Female" <%= data.gender_032 == 'Female' ? 'checked' : '' %> required>Female
+                </td>
+            </tr>
+            <tr>
+                <td>Age (month)</td>
+                <td><input type="number" name="age_032" value="<%= data.age_032 %>" required></td>
+            </tr>
+            <tr>
+                <td>Price ($)</td>
+                <td><input type="number" name="price_032" value="<%= data.price_032 %>" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="SAVE" name="submit">
+                    <a href="/cats"><input type="button" value="CANCEL"></a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

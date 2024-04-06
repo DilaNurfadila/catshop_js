@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATSHOP 032</title>
+</head>
+
+<body>
+    <h1>CATSHOP 032</h1>
+    <h3>APPS MENU</h3>
+    <hr>
+    <ul>
+        <li><a href="/cats">Manage Cats</a></li>
+        <li><a href="/categories">Manage Categories</a></li>
+        <!-- < if ($this->session->userdata('usertype') == 'Manager') { %> -->
+            <li><a href="/users">Manage Users</a></li>
+            <li><a href="/cats/sales">Sales Report</a></li>
+        <!-- < } %> -->
+    </ul>
+    <hr>
+    <!-- <h3>Welcome <= $this->session->userdata('fullname') %>, you are login as <= $this->session->userdata('usertype') %></h3> -->
+    <ul>
+        <li><a href="/auth/changepass">Change Password</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+    </ul>
+</body>
+
+</html>

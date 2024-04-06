@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CATSHOP 032</title>
+  </head>
+  <body>
+    <h1>CATSHOP 032</h1>
+    <h3>CATS LIST</h3>
+    <a href="/">
+      <h4>HOME</h4>
+    </a>
+    <hr />
+    <% if (locals.success) { %>
+      <p style="color:green;">
+        <%= locals.success %>
+      </p>
+    <% } %>
+    <% if (locals.failed) { %>
+      <p style="color: red;">
+        <%= locals.failed %>
+      </p>
+    <% } %>
+    <a href="/cats/add">Add new cat</a>
+    <hr />
+    <table border="1">
+      <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Gender</th>
+        <th>Age (month)</th>
+        <th>Price ($)</th>
+        <th colspan="3">Action</th>
+      </tr>
+      <% let i = 1; cats.forEach(cat => { %>
+      <tr>
+        <td><%= i++; %></td>
+        <td><%= cat.name_032 %></td>
+        <td><%= cat.type_032 %></td>
+        <td><%= cat.gender_032 %></td>
+        <td><%= cat.age_032 %></td>
+        <td><%= cat.price_032 %></td>
+        <td><a href="/cats/edit/<%= cat.id_032 %>">Edit</a></td>
+        <td>
+          <a
+            href="/cats/delete/<%= cat.id_032 %>"
+            onclick="return confirm('Are you sure?')"
+            >Delete</a
+          >
+        </td>
+        <td>
+          <% if(cat.sold_032 == 1) { %> SOLD <% } else { %>
+          <a href="/sale/<%= cat.id_032 %>">SALE</a>
+          <% } %>
+        </td>
+      </tr>
+      <% }); %>
+    </table>
+  </body>
+</html>
