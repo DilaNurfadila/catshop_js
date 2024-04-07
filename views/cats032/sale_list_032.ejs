@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CATSHOP 032</title>
+  </head>
+
+  <body>
+    <h1>CATSHOP 032</h1>
+    <h3>SALES LIST</h3>
+    <a href="/">
+      <h4>HOME</h4>
+    </a>
+    <hr />
+    <table border="1">
+      <tr>
+        <th>No</th>
+        <th>Sale ID</th>
+        <th>Sale Date</th>
+        <th>Cat Name</th>
+        <th>Customer Name</th>
+        <th>Customer Address</th>
+        <th>Customer Phone</th>
+      </tr>
+      <% let i = 1; sales.forEach(sale => { %>
+      <tr>
+        <td><%= i++; %></td>
+        <td><%= sale.sale_id_032 %></td>
+        <td>
+            <%
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; 
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            
+            const d = new Date(sale.sale_date_032);
+            let day = days[d.getDay()]; 
+            let month = months[d.getMonth()];
+            %>
+            <%= day %>, <%= d.getDate() %> <%= month %> <%= d.getFullYear() %>
+        </td>
+        <td>
+          <a href="/cats/getCatSold/<%= sale.cat_id_032 %>"
+            ><%= sale.name_032 %></a
+          >
+        </td>
+        <td><%= sale.customer_name_032 %></td>
+        <td><%= sale.customer_address_032 %></td>
+        <td><%= sale.customer_phone_032 %></td>
+      </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>

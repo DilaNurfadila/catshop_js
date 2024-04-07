@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>CATSHOP 032</h1>
-    <h3>CATS LIST</h3>
+    <h3>CATEGORIES LIST</h3>
     <a href="/">
       <h4>HOME</h4>
     </a>
@@ -23,38 +23,27 @@
         <%= locals.failed %>
       </p>
     <% } %>
-    <a href="/cats/add">Add new cat</a>
+    <a href="/categories/add">Add new category</a>
     <hr />
     <table border="1">
       <tr>
         <th>No</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Gender</th>
-        <th>Age (month)</th>
-        <th>Price ($)</th>
-        <th colspan="3">Action</th>
+        <th>Category Name</th>
+        <th>Description</th>
+        <th colspan="2">Action</th>
       </tr>
-      <% let i = 1; cats.forEach(cat => { %>
+      <% let i = 1; categories.forEach(category => { %>
       <tr>
         <td><%= i++; %></td>
-        <td><%= cat.name_032 %></td>
-        <td><%= cat.type_032 %></td>
-        <td><%= cat.gender_032 %></td>
-        <td><%= cat.age_032 %></td>
-        <td><%= cat.price_032 %></td>
-        <td><a href="/cats/edit/<%= cat.id_032 %>">Edit</a></td>
+        <td><%= category.category_name_032 %></td>
+        <td><%= category.description_032 %></td>
+        <td><a href="/categories/edit/<%= category.category_id_032 %>">Edit</a></td>
         <td>
           <a
-            href="/cats/delete/<%= cat.id_032 %>"
+            href="/categories/delete/<%= category.category_id_032 %>"
             onclick="return confirm('Are you sure?')"
             >Delete</a
           >
-        </td>
-        <td>
-          <% if(cat.sold_032 == 1) { %> SOLD <% } else { %>
-          <a href="/cats/sale/<%= cat.id_032 %>">SALE</a>
-          <% } %>
         </td>
       </tr>
       <% }); %>

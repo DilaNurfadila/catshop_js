@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATSHOP 032</title>
+</head>
+
+<body>
+    <h1>CATSHOP 032</h1>
+    <h3>CAT SALE FORM</h3>
+    <hr>
+    <form action="" method="post">
+        <table>
+            <tr>
+                <td>Cat Id</td>
+                <td>: <%= data.id_032; %></td>
+            </tr>
+            <tr>
+                <td>Cat Name</td>
+                <td>: <%= data.name_032; %></td>
+            </tr>
+            <tr>
+                <td>Cat Type</td>
+                <td>: <%= data.type_032; %></td>
+            </tr>
+            <tr>
+                <td>Cat Price</td>
+                <td>: $<%= data.price_032; %></td>
+            </tr>
+            <tr>
+                <td>Customer Name</td>
+                <td><input type="text" name="customer_name_032" /></td>
+            </tr>
+            <tr>
+                <td>Customer Address</td>
+                <td><textarea name="customer_address_032" cols="30" rows="10"></textarea></td>
+            </tr>
+            <tr>
+                <td>Customer Phone</td>
+                <td><input type="text" name="customer_phone_032" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" name="submit" value="SALE">
+                    <a href="/cats"><input type="button" value="CANCEL"></a>
+                </td>
+            </tr>
+        </table>
+    </form>
