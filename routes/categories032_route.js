@@ -5,10 +5,12 @@ const router = express.Router(); // router
 
 // Create routes for controllers
 router.get("/", Categories032Controller.getAll);
-router.get("/add", Categories032Controller.addForm);
-router.post("/add", Categories032Controller.add);
-router.get("/edit/:id", Categories032Controller.editForm);
-router.post("/edit/:id", Categories032Controller.update);
+router.route("/add")
+.get(Categories032Controller.addForm)
+.post(Categories032Controller.add);
+router.route("/edit/:id")
+.get(Categories032Controller.editForm)
+.post(Categories032Controller.update);
 router.get("/delete/:id", Categories032Controller.delete);
 
 module.exports = router; // export router

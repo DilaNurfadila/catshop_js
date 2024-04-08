@@ -23,7 +23,9 @@ const Categories032Controller = {
 
   // render form add file
   addForm: (req, res) => {
-    res.render("categories032/category_form_add_032");
+    Categories032Model.read((data) => {
+      res.render("categories032/category_form_032", { data });
+    })
   },
 
   // proccess add
@@ -41,7 +43,7 @@ const Categories032Controller = {
   // render form edit file
   editForm: (req, res) => {
     Categories032Model.read_by(req.params.id, (err, rows) => {
-      res.render("categories032/category_form_edit_032", { data: rows[0] });
+      res.render("categories032/category_form_032", { data: rows[0] });
     });
   },
 

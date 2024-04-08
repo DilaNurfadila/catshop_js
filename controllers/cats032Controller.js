@@ -1,4 +1,5 @@
 const Cats032Model = require("../models/cats032_model"); // call cat model
+const Categories032Model = require("../models/categories032_model"); // call cat model
 
 // Create controller
 const Cats032Controller = {
@@ -15,7 +16,13 @@ const Cats032Controller = {
 
   // render form add file
   addForm: (req, res) => {
-    res.render("cats032/cat_form_add_032");
+    Cats032Model.read((data) => {
+      Categories032Model.read((categories) => {
+        res.render("cats032/cat_form_032", { data, categories });
+      });
+    })
+    
+    // res.render("cats032/cat_form_add_032");
   },
 
   // proccess add cat
@@ -28,14 +35,16 @@ const Cats032Controller = {
         res.redirect("/cats");
       }
     });
-    
   },
 
   // render form edit file
   editForm: (req, res) => {
-    Cats032Model.read_by(req.params.id, (err, rows) => {
-      res.render("cats032/cat_form_edit_032", { data: rows[0] });
+    Categories032Model.read((categories) => {
+      Cats032Model.read_by(req.params.id, (err, rows) => {
+        res.render("cats032/cat_form_032", { data: rows[0], categories });
+      });
     });
+    
   },
 
   // proccess edit cat
@@ -91,11 +100,11 @@ const Cats032Controller = {
   // get cat sold
   getCatSold: (req, res) => {
     Cats032Model.read_by(req.params.id, (err, row) => {
-      if(err) throw err;
+      if (err) throw err;
       const cat = row[0];
       res.render("cats032/cat_detail_032", { cat });
     });
-  }
+  },
 };
 
 module.exports = Cats032Controller; // export controller
