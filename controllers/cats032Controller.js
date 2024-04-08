@@ -90,9 +90,10 @@ const Cats032Controller = {
 
   // get cat sold
   getCatSold: (req, res) => {
-    Cats032Model.read_by(req.params.id, (cat) => {
+    Cats032Model.read_by(req.params.id, (err, row) => {
+      if(err) throw err;
+      const cat = row[0];
       res.render("cats032/cat_detail_032", { cat });
-      console.log(cat);
     });
   }
 };

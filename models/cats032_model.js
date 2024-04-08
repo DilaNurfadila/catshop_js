@@ -12,7 +12,7 @@ const Cats032Model = {
 
   // Get by id
   read_by: (id, callback) => {
-    db.query(`SELECT * FROM cats032 WHERE id_032 = ${id}`, callback);
+    db.query(`SELECT * FROM cats032 WHERE id_032 = ${id}`, callback)
   },
 
   // Add
