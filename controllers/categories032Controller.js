@@ -13,14 +13,6 @@ const Categories032Controller = {
     });
   },
 
-  // get by id
-  getById: (req, res) => {
-    const id = req.params.id;
-    Categories032Model.read_by(id, (category) => {
-      res.render("categories032", { category });
-    });
-  },
-
   // render form add file
   addForm: (req, res) => {
     Categories032Model.read((data) => {

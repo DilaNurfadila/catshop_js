@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATSHOP 032</title>
+</head>
+
+<body>
+    <h1>CATSHOP 032</h1>
+    <h3>USER FORM</h3>
+    <hr>
+    <%
+    let username = ''
+    let usertype = ''
+    let fullname = ''
+
+    if(data !== undefined) {
+        username = data.username_032
+        usertype = data.usertype_032
+        fullname = data.fullname_032
+    }
+    %>
+    <form action="" method="post">
+        <table>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username_032" value="<%= username %>" required></td>
+            </tr>
+            <tr>
+                <td>Usertype</td>
+                <td>
+                    <input type="radio" name="usertype_032" value="Manager" <%= usertype == 'Manager' ? 'checked' : '' %> required> Manager
+                    <input type="radio" name="usertype_032" value="Cashier" <%= usertype == 'Cashier' ? 'checked' : '' %> required> Cashier
+                </td>
+            </tr>
+            <tr>
+                <td>Fullname</td>
+                <td><input type="text" name="fullname_032" value="<%= fullname %>" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="SAVE" name="submit">
+                    <a href="/users"><input type="button" value="CANCEL"></a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

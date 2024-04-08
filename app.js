@@ -10,6 +10,7 @@ const session = require("express-session");
 // Router
 const catsRouter = require("./routes/cats032_route");
 const categoriesRouter = require("./routes/categories032_route");
+const usersRouter = require("./routes/users032_route");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.set("view engine", "ejs");
 // Call router
 app.use("/cats", catsRouter)
 app.use("/categories", categoriesRouter)
+app.use("/users", usersRouter)
 
 // Get root (/) and render with home_menu_032 file
 app.get("/", (req, res) => {
