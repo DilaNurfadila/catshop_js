@@ -6,11 +6,15 @@ const Cats032Controller = {
   // get all cats
   getAll: (req, res) => {
     Cats032Model.read((cats) => {
-      res.render("cats032/cat_list_032", {
-        cats,
-        success: req.flash("success"),
-        failed: req.flash("failed"),
-      });
+      if (req.session && req.session.user) {
+        res.render("cats032/cat_list_032", {
+          cats,
+          success: req.flash("success"),
+          failed: req.flash("failed"),
+        });
+      } else {
+        res.redirect("/auth/login")
+      }
     });
   },
 
@@ -18,7 +22,11 @@ const Cats032Controller = {
   addForm: (req, res) => {
     Cats032Model.read((data) => {
       Categories032Model.read((categories) => {
-        res.render("cats032/cat_form_032", { data, categories });
+        if (req.session && req.session.user) {
+          res.render("cats032/cat_form_032", { data, categories });
+        } else {
+          res.redirect("/auth/login")
+        }
       });
     })
     
@@ -41,7 +49,11 @@ const Cats032Controller = {
   editForm: (req, res) => {
     Categories032Model.read((categories) => {
       Cats032Model.read_by(req.params.id, (err, rows) => {
-        res.render("cats032/cat_form_032", { data: rows[0], categories });
+        if (req.session && req.session.user) {
+          res.render("cats032/cat_form_032", { data: rows[0], categories });
+        } else {
+          res.redirect("/auth/login")
+        }
       });
     });
     
@@ -74,7 +86,15 @@ const Cats032Controller = {
   // Sale form
   saleForm: (req, res) => {
     Cats032Model.read_by(req.params.id, (err, rows) => {
-      res.render("cats032/cat_sale_032", { data: rows[0] });
+      if (req.session && req.session.user) {
+        if(req.session.user.usertype === 'Manager') {
+          res.render("cats032/cat_sale_032", { data: rows[0] });
+        } else {
+          res.redirect("/")
+        }
+      } else {
+        res.redirect("/auth/login")
+      }
     });
   },
 
@@ -93,7 +113,15 @@ const Cats032Controller = {
   // Sales form
   sales: (req, res) => {
     Cats032Model.sales((sales) => {
-      res.render("cats032/sale_list_032", { sales });
+      if (req.session && req.session.user) {
+        if(req.session.user.usertype === 'Manager') {
+          res.render("cats032/sale_list_032", { sales });
+        } else {
+          res.redirect("/")
+        }
+      } else {
+        res.redirect("/auth/login")
+      }
     });
   },
 
@@ -102,7 +130,15 @@ const Cats032Controller = {
     Cats032Model.read_by(req.params.id, (err, row) => {
       if (err) throw err;
       const cat = row[0];
-      res.render("cats032/cat_detail_032", { cat });
+      if (req.session && req.session.user) {
+        if(req.session.user.usertype === 'Manager') {
+          res.render("cats032/cat_detail_032", { cat });
+        } else {
+          res.redirect("/")
+        }
+      } else {
+        res.redirect("/auth/login")
+      }
     });
   },
 };

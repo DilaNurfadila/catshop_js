@@ -5,18 +5,26 @@ const Categories032Controller = {
   // get all
   getAll: (req, res) => {
     Categories032Model.read((categories) => {
-      res.render("categories032/category_list_032", {
-        categories,
-        success: req.flash("success"),
-        failed: req.flash("failed"),
-      });
+      if (req.session && req.session.user) {
+        res.render("categories032/category_list_032", {
+          categories,
+          success: req.flash("success"),
+          failed: req.flash("failed"),
+        });
+      } else {
+        res.redirect("/auth/login")
+      }
     });
   },
 
   // render form add file
   addForm: (req, res) => {
     Categories032Model.read((data) => {
-      res.render("categories032/category_form_032", { data });
+      if (req.session && req.session.user) {
+        res.render("categories032/category_form_032", { data });
+      } else {
+        res.redirect("/auth/login")
+      }
     })
   },
 
@@ -35,7 +43,11 @@ const Categories032Controller = {
   // render form edit file
   editForm: (req, res) => {
     Categories032Model.read_by(req.params.id, (err, rows) => {
-      res.render("categories032/category_form_032", { data: rows[0] });
+      if (req.session && req.session.user) {
+        res.render("categories032/category_form_032", { data: rows[0] });
+      } else {
+        res.redirect("/auth/login")
+      }
     });
   },
 

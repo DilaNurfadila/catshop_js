@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATSHOP 032</title>
+</head>
+
+<body>
+    <h1>CATSHOP 032</h1>
+    <h3>LOGIN PAGE</h3>
+    <hr>
+    <!-- Flash message -->
+    <% if (locals.success) { %>
+        <p style="color:green;">
+          <%= locals.success %>
+        </p>
+      <% } %>
+      <% if (locals.failed) { %>
+        <p style="color: red;">
+          <%= locals.failed %>
+        </p>
+      <% } %>
+    <!-- <div style="color: red"><= validation_errors(); ?></div> -->
+    <form action="" method="post">
+        <table>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username" required></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="LOGIN" name="login">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

@@ -12,5 +12,6 @@ router.route("/edit/:id")
 .get(Users032Controller.editForm)
 .post(Users032Controller.update);
 router.get("/delete/:id", Users032Controller.delete);
+router.get("/resetpass/:id", Users032Controller.resetpass);
 
 module.exports = router; // export router

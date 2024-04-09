@@ -44,6 +44,17 @@ const Users032Model = {
   // Delete
   delete: (id, callback) => {
     db.query(`DELETE FROM users032 WHERE userid_032 = ${id}`, callback)
+  },
+
+  // reset password
+  resetpass: async (data, id, callback) => {
+    const newpassword = await bcrypt.hash(data, 10)
+    db.query(
+      `UPDATE users032 SET 
+      password_032 = '${newpassword}'
+      WHERE userid_032 = '${id}'`,
+      callback
+    );
   }
 };
 

@@ -14,13 +14,13 @@
     <ul>
         <li><a href="/cats">Manage Cats</a></li>
         <li><a href="/categories">Manage Categories</a></li>
-        <!-- < if ($this->session->userdata('usertype') == 'Manager') { %> -->
+        <% if (user.usertype === 'Manager') { %>
             <li><a href="/users">Manage Users</a></li>
             <li><a href="/cats/sales">Sales Report</a></li>
-        <!-- < } %> -->
+        <% } %>
     </ul>
     <hr>
-    <!-- <h3>Welcome <= $this->session->userdata('fullname') %>, you are login as <= $this->session->userdata('usertype') %></h3> -->
+    <h3>Welcome <%= user.fullname %>, you are login as <%= user.usertype %></h3>
     <ul>
         <li><a href="/auth/changepass">Change Password</a></li>
         <li><a href="/auth/logout">Logout</a></li>
