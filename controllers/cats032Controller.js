@@ -23,7 +23,11 @@ const Cats032Controller = {
     Cats032Model.read((data) => {
       Categories032Model.read((categories) => {
         if (req.session && req.session.user) {
-          res.render("cats032/cat_form_032", { data, categories });
+          res.render("cats032/cat_form_032", { 
+            data, 
+            categories,
+            failed: req.flash("failed"),
+          });
         } else {
           res.redirect("/auth/login")
         }
@@ -35,6 +39,14 @@ const Cats032Controller = {
 
   // proccess add cat
   add: (req, res) => {
+    const { name_032, type_032, gender_032, age_032, price_032 } = req.body;
+
+    if(!name_032 || !type_032 || !gender_032 || !age_032 || !price_032) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect("/cats/add");
+    }
+
+
     Cats032Model.create(req.body, (err) => {
       if (err) {
         req.flash("failed", `Cat add failed`);
@@ -50,7 +62,11 @@ const Cats032Controller = {
     Categories032Model.read((categories) => {
       Cats032Model.read_by(req.params.id, (err, rows) => {
         if (req.session && req.session.user) {
-          res.render("cats032/cat_form_032", { data: rows[0], categories });
+          res.render("cats032/cat_form_032", { 
+            data: rows[0],
+            categories,
+            failed: req.flash("failed"),
+          });
         } else {
           res.redirect("/auth/login")
         }
@@ -61,6 +77,14 @@ const Cats032Controller = {
 
   // proccess edit cat
   update: (req, res) => {
+    const { name_032, type_032, gender_032, age_032, price_032 } = req.body;
+    const id = req.params.id;
+
+    if(!name_032 || !type_032 || !gender_032 || !age_032 || !price_032) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect(`/cats/edit/${id}`);
+    }
+
     Cats032Model.update(req.body, req.params.id, (err) => {
       if (err) {
         req.flash("failed", `Cat update failed`);
@@ -88,7 +112,10 @@ const Cats032Controller = {
     Cats032Model.read_by(req.params.id, (err, rows) => {
       if (req.session && req.session.user) {
         if(req.session.user.usertype === 'Manager') {
-          res.render("cats032/cat_sale_032", { data: rows[0] });
+          res.render("cats032/cat_sale_032", {
+            data: rows[0],
+            failed: req.flash("failed"),
+          });
         } else {
           res.redirect("/")
         }
@@ -100,6 +127,13 @@ const Cats032Controller = {
 
   // Sale
   sale: (req, res) => {
+    const { customer_name_032, customer_address_032, customer_phone_032 } = req.body;
+    const id = req.params.id;
+
+    if(!customer_name_032 || !customer_address_032 || !customer_phone_032) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect(`/cats/sale/${id}`);
+    }
     Cats032Model.sale(req.body, req.params.id, (err) => {
       if (err) {
         req.flash("failed", `Cat sale failed`);

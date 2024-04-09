@@ -22,6 +22,18 @@
         fullname = data.fullname_032
     }
     %>
+
+    <!-- Flash message -->
+    <% if (locals.success) { %>
+        <p style="color:green;">
+          <%= locals.success %>
+        </p>
+      <% } %>
+      <% if (locals.failed) { %>
+        <p style="color: red;">
+          <%= locals.failed %>
+        </p>
+      <% } %>
     <form action="" method="post">
         <table>
             <tr>

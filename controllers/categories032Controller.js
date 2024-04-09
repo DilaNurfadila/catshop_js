@@ -21,7 +21,10 @@ const Categories032Controller = {
   addForm: (req, res) => {
     Categories032Model.read((data) => {
       if (req.session && req.session.user) {
-        res.render("categories032/category_form_032", { data });
+        res.render("categories032/category_form_032", { 
+          data,
+          failed: req.flash("failed"),
+        });
       } else {
         res.redirect("/auth/login")
       }
@@ -30,6 +33,13 @@ const Categories032Controller = {
 
   // proccess add
   add: (req, res) => {
+    const { category_name_032, description_032 } = req.body;
+
+    if(!category_name_032 || !description_032) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect("/categories/add");
+    }
+
     Categories032Model.create(req.body, (err) => {
       if (err) {
         req.flash("failed", `Category add failed`);
@@ -44,7 +54,10 @@ const Categories032Controller = {
   editForm: (req, res) => {
     Categories032Model.read_by(req.params.id, (err, rows) => {
       if (req.session && req.session.user) {
-        res.render("categories032/category_form_032", { data: rows[0] });
+        res.render("categories032/category_form_032", { 
+          data: rows[0],
+          failed: req.flash("failed"),
+        });
       } else {
         res.redirect("/auth/login")
       }
@@ -53,6 +66,14 @@ const Categories032Controller = {
 
   // proccess edit
   update: (req, res) => {
+    const { category_name_032, description_032 } = req.body;
+    const id = req.params.id;
+
+    if(!category_name_032 || !description_032) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect(`/categories/edit/${id}`);
+    }
+
     Categories032Model.update(req.body, req.params.id, (err) => {
       if (err) {
         req.flash("failed", `Category update failed`);

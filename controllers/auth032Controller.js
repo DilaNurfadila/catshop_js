@@ -14,6 +14,11 @@ const Auth032Controller = {
   login: (req, res) => {
     const { username, password } = req.body;
 
+    if(!username || !password) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect("/auth/login");
+    }
+
     // Cari pengguna berdasarkan username
     Auth032Model.getuser(username, (err, rows) => {
       const user = rows[0];
@@ -21,6 +26,7 @@ const Auth032Controller = {
 
       // password check
       bcrypt.compare(password, user.password_032, (err, result) => {
+
         // if password match, create session for the user
         if (result) {
           // create session
@@ -59,6 +65,11 @@ const Auth032Controller = {
   // proccess edit
   changePass: (req, res) => {
     const { oldpassword, newpassword } = req.body;
+
+    if(!oldpassword || !newpassword) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect("/auth/changepass");
+    }
 
     Auth032Model.getuser(req.session.user.username, (err, rows) => {
       const user = rows[0];

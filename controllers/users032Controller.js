@@ -26,7 +26,10 @@ const Users032Controller = {
     Users032Model.read((data) => {
       if (req.session && req.session.user) {
         if(req.session.user.usertype === 'Manager') {
-          res.render("users032/user_form_032", { data });
+          res.render("users032/user_form_032", { 
+            data,
+            failed: req.flash("failed"), 
+          });
         } else {
           res.redirect("/")
         }
@@ -38,6 +41,13 @@ const Users032Controller = {
 
   // proccess add
   add: (req, res) => {
+    const { username_032, usertype_032, fullname_032 } = req.body;
+
+    if(!username_032 || !usertype_032 || !fullname_032) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect("/users/add");
+    }
+    
     Users032Model.create(req.body, (err) => {
       if (err) {
         req.flash("failed", `User add failed`);
@@ -53,7 +63,10 @@ const Users032Controller = {
     Users032Model.read_by(req.params.id, (err, rows) => {
       if (req.session && req.session.user) {
         if(req.session.user.usertype === 'Manager') {
-          res.render("users032/user_form_032", { data: rows[0] });
+          res.render("users032/user_form_032", { 
+            data: rows[0],
+            failed: req.flash("failed"),
+          });
         } else {
           res.redirect("/")
         }
@@ -65,6 +78,14 @@ const Users032Controller = {
 
   // proccess edit
   update: (req, res) => {
+    const { username_032, usertype_032, fullname_032 } = req.body;
+    const id = req.params.id;
+
+    if(!username_032 || !usertype_032 || !fullname_032) {
+      req.flash("failed", "Please fill in all fields");
+      return res.redirect(`/users/edit/${id}`);
+    }
+
     Users032Model.update(req.body, req.params.id, (err) => {
       if (err) {
         req.flash("failed", `User update failed`);

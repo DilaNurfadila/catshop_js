@@ -11,6 +11,18 @@
     <h1>CATSHOP 032</h1>
     <h3>CAT SALE FORM</h3>
     <hr>
+
+    <!-- Flash message -->
+    <% if (locals.success) { %>
+        <p style="color:green;">
+          <%= locals.success %>
+        </p>
+      <% } %>
+      <% if (locals.failed) { %>
+        <p style="color: red;">
+          <%= locals.failed %>
+        </p>
+      <% } %>
     <form action="" method="post">
         <table>
             <tr>
