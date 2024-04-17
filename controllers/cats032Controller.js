@@ -5,17 +5,30 @@ const Categories032Model = require("../models/categories032_model"); // call cat
 const Cats032Controller = {
   // get all cats
   getAll: (req, res) => {
-    Cats032Model.read((cats) => {
-      if (req.session && req.session.user) {
-        res.render("cats032/cat_list_032", {
-          cats,
-          success: req.flash("success"),
-          failed: req.flash("failed"),
-        });
-      } else {
-        res.redirect("/auth/login")
-      }
-    });
+    const page = parseInt(req.query.page);
+    const limit = 10;
+
+    // console.log(page);
+    Cats032Model.read((data) => {
+      const totalItems = data.length;
+      
+      Cats032Model.pagination(page, limit, (cats) => {
+        const totalPages = Math.ceil(totalItems / limit);
+  
+        if (req.session && req.session.user) {
+          res.render("cats032/cat_list_032", {
+            cats,
+            currentPage: page,
+            totalPages,
+            success: req.flash("success"),
+            failed: req.flash("failed"),
+          });
+        } else {
+          res.redirect("/auth/login")
+        }
+      });
+    })
+    
   },
 
   // render form add file

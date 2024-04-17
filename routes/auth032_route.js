@@ -1,6 +1,8 @@
 const express = require("express");
 const Auth032Controller = require("../controllers/auth032Controller"); // call controller
 
+
+
 const router = express.Router(); // router
 
 // Create routes for controllers
@@ -11,8 +13,8 @@ router.get("/logout", Auth032Controller.logout);
 router.route("/changepass")
 .get(Auth032Controller.changePassForm)
 .post(Auth032Controller.changePass)
-// router.route("/add")
-// .get(Users032Controller.addForm)
-// .post(Users032Controller.add);
+router.route("/changephoto")
+.get(Auth032Controller.changePhotoForm)
+.post(Auth032Controller.changePhoto)
 
 module.exports = router; // export router

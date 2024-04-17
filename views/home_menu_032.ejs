@@ -12,7 +12,7 @@
     <h3>APPS MENU</h3>
     <hr>
     <ul>
-        <li><a href="/cats">Manage Cats</a></li>
+        <li><a href="/cats?page=1">Manage Cats</a></li>
         <li><a href="/categories">Manage Categories</a></li>
         <% if (user.usertype === 'Manager') { %>
             <li><a href="/users">Manage Users</a></li>
@@ -21,7 +21,9 @@
     </ul>
     <hr>
     <h3>Welcome <%= user.fullname %>, you are login as <%= user.usertype %></h3>
+    <img src="../../uploads/users/<%= user.photo %>" alt="Photo Profile" width="128" height="128">
     <ul>
+        <li><a href="/auth/changephoto">Change Photo</a></li>
         <li><a href="/auth/changepass">Change Password</a></li>
         <li><a href="/auth/logout">Logout</a></li>
     </ul>

@@ -1,6 +1,12 @@
 const db = require("./../config/db"); // call and execute db
 const bcrypt = require("bcrypt"); // call bcrypt library
 
+// Filesystem
+const fs = require("fs");
+const path = require("path");
+
+
+
 // Create model
 const Auth032Model = {
   // Get by id
@@ -19,9 +25,23 @@ const Auth032Model = {
     );
   },
 
-  // Delete
-  delete: (id, callback) => {
-    db.query(`DELETE FROM users032 WHERE userid_032 = ${id}`, callback)
+  // Change Photo
+  changephoto: (username, photo, oldphoto, callback) => {
+    const fullPath = path.join(__dirname, "../", "public", "uploads", "users", oldphoto);
+
+    if(oldphoto !== "default.png") {
+      fs.unlink(fullPath, (err) => {
+        if (err) throw err;
+        console.log("File deleted successfully");
+      })
+    }
+
+    db.query(`UPDATE users032 set photo_032='${photo}' where username_032='${username}'`, callback);
+
+
+    // console.log(fullPath);
+
+    
   }
 };
 

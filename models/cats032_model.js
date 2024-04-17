@@ -15,6 +15,16 @@ const Cats032Model = {
     db.query(`SELECT * FROM cats032 WHERE id_032 = ${id}`, callback)
   },
 
+  // Pagination
+  pagination: (page, limit, callback) => {
+    const offset = (page - 1) * limit
+
+    db.query(`SELECT * FROM cats032 where sold_032 = 0 limit ${limit} offset ${offset}`, (err, result) => {
+      if (err) throw err;
+      callback(result);
+    });
+  },
+
   // Add
   create: (data, callback) => {
     db.query(
