@@ -91,7 +91,7 @@ const Users032Controller = {
         req.flash("failed", `User update failed`);
       } else {
         req.flash("success", `User updated successfully`);
-        // Add 
+        // Add session
         req.session.user.username = username_032;
         req.session.user.usertype = usertype_032;
         req.session.user.fullname = fullname_032;
