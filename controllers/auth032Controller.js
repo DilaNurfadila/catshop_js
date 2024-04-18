@@ -6,16 +6,16 @@ const multer  = require('multer')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      cb(null, 'public/uploads/users/'); // Tentukan folder tujuan untuk menyimpan file
+      cb(null, 'public/uploads/users/'); // path lokasi gambar yang akan disimpan
   },
   filename: function (req, file, cb) {
-      cb(null, file.originalname); // Tentukan nama file yang diunggah
+      cb(null, file.originalname); // nama file gambar yang akan disimpan
   }
 });
 const upload = multer({ storage: storage });
 
-// render form
 const Auth032Controller = {
+  // render form
   loginForm: (req, res) => {
     res.render("auth032/form_login_032", {
       success: req.flash("success"),
