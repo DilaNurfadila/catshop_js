@@ -35,7 +35,7 @@ const Auth032Controller = {
     // Cari pengguna berdasarkan username
     Auth032Model.getuser(username, (err, rows) => {
       const user = rows[0];
-      console.log(user);
+      // console.log(user);
 
       // password check
       bcrypt.compare(password, user.password_032, (err, result) => {
