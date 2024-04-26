@@ -15,6 +15,9 @@ router.route("/add")
 router.route("/edit/:id")
 .get(Cats032Controller.editForm)
 .post(Cats032Controller.update);
+router.route("/changephoto/:id")
+.get(Cats032Controller.changePhotoForm)
+.post(Cats032Controller.changePhoto);
 router.get("/delete/:id", Cats032Controller.delete);
 router.get("/sales", Cats032Controller.sales);
 // router.get("/sale/:id", Cats032Controller.saleForm);

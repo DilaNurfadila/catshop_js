@@ -40,8 +40,6 @@ const Auth032Model = {
 
 
     // console.log(fullPath);
-
-    
   }
 };
 

@@ -1,6 +1,19 @@
 const Cats032Model = require("../models/cats032_model"); // call cat model
 const Categories032Model = require("../models/categories032_model"); // call cat model
 
+// Multer
+const multer  = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, 'public/uploads/cats/'); // path lokasi gambar yang akan disimpan
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname); // nama file gambar yang akan disimpan
+  }
+});
+const upload = multer({ storage: storage });
+
 // Create controller
 const Cats032Controller = {
   // get all cats
@@ -105,6 +118,50 @@ const Cats032Controller = {
         req.flash("success", `Cat updated successfully`);
         res.redirect("/cats");
       }
+    });
+  },
+
+  // render form edit file
+  changePhotoForm: (req, res) => {
+      Cats032Model.read_by(req.params.id, (err, rows) => {
+        if (req.session && req.session.user) {
+          res.render("cats032/cat_form_photo_032", { 
+            data: rows[0],
+            success: req.flash('success'),
+            failed: req.flash("failed"),
+          });
+        } else {
+          res.redirect("/auth/login")
+        }
+      });
+  },
+
+  // upload proccess
+  changePhoto: (req, res) => {
+    const photo_032 = req.body;
+    upload.single('photo')(req, res, (err) => {
+      if(err) {
+        console.log(err);
+        req.flash("failed", "Upload file failed");
+        return res.redirect(`/cats/changephoto/${req.params.id}`);
+      }
+
+      if(!photo_032) {
+        req.flash("failed", "Please fill in all fields");
+        return res.redirect(`/cats/changephoto/${req.params.id}`);
+      }
+
+      Cats032Model.read_by(req.params.id, (err, rows) => {
+        cat = rows[0];
+        Cats032Model.changephoto(req.params.id, req.file.originalname, cat.photo_032, (err) => {
+          if (err) {
+            req.flash("failed", "Photo change failed");
+          } else {
+            req.flash("success", "Photo changed successfully");
+          }
+        res.redirect(`/cats/changephoto/${req.params.id}`);
+        })
+      });
     });
   },
 

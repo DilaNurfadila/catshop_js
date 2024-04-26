@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATSHOP 032</title>
+</head>
+
+<body>
+    <h1>CATSHOP 032</h1>
+    <h3>CHANGE PHOTO</h3>
+    <hr>
+    <% if (locals.success) { %>
+        <p style="color:green;">
+          <%= locals.success %>
+        </p>
+      <% } %>
+      <% if (locals.failed) { %>
+        <p style="color: red;">
+          <%= locals.failed %>
+        </p>
+      <% } %>
+    <form action="" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>Current Photo</td>
+                <td><img src="../../uploads/cats/<%= data.photo_032 %>" alt="Photo Profile" width="128" height="128"></td>
+            </tr>
+            <tr>
+                <td>New Photo</td>
+                <td><input type="file" name="photo" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="UPLOAD PHOTO" name="upload">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <hr>
+    <a href="/cats?page=1">Back</a>
+</body>
+
+</html>

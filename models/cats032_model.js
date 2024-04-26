@@ -1,5 +1,8 @@
 const db = require("./../config/db"); // call and execute db
 
+const fs = require("fs");
+const path = require("path");
+
 // Create model
 const Cats032Model = {
   // Get all
@@ -37,6 +40,23 @@ const Cats032Model = {
       sold_032 = '0'`,
       callback
     );
+  },
+
+  // Change Photo
+  changephoto: (id, photo, oldphoto, callback) => {
+    const fullPath = path.join(__dirname, "../", "public", "uploads", "cats", oldphoto);
+
+    if(oldphoto !== "default.png") {
+      fs.unlink(fullPath, (err) => {
+        if (err) throw err;
+        console.log("File deleted successfully");
+      })
+    }
+
+    db.query(`UPDATE cats032 set photo_032='${photo}' where id_032='${id}'`, callback);
+
+
+    // console.log(fullPath);
   },
 
   // Edit
