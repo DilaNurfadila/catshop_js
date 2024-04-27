@@ -19,6 +19,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
+app.use("/css", express.static("src"));
 
 // Session
 app.use(

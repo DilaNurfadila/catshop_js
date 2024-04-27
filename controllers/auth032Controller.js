@@ -1,5 +1,7 @@
 const Auth032Model = require("../models/auth032_model"); // call model
 const bcrypt = require("bcrypt"); // call bcrypt library
+const { failedInvalid, failedFill, failedPass, failedPhoto, failedUpload, failedOldPass } = require("../public/template/js/alertFailed")
+const { successPass, successPhoto } = require("../public/template/js/alertSuccess")
 
 // Multer
 const multer  = require('multer')
@@ -28,14 +30,19 @@ const Auth032Controller = {
     const { username, password } = req.body;
 
     if(!username || !password) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect("/auth/login");
     }
 
     // Cari pengguna berdasarkan username
     Auth032Model.getuser(username, (err, rows) => {
       const user = rows[0];
-      // console.log(user);
+      // console.log(user.username_032);
+
+      if(!user || !user.username_032) {
+        req.flash("failed", failedInvalid);
+        return res.redirect("/auth/login");
+      }
 
       // password check
       bcrypt.compare(password, user.password_032, (err, result) => {
@@ -51,7 +58,7 @@ const Auth032Controller = {
           };
           res.redirect("/");
         } else {
-          req.flash("failed", "Invalid username or password");
+          req.flash("failed", failedInvalid);
           res.redirect("/auth/login");
         }
       });
@@ -81,7 +88,7 @@ const Auth032Controller = {
     const { oldpassword, newpassword } = req.body;
 
     if(!oldpassword || !newpassword) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect("/auth/changepass");
     }
 
@@ -90,7 +97,7 @@ const Auth032Controller = {
 
       bcrypt.compare(oldpassword, user.password_032, (err, result) => {
         if (!result) {
-          req.flash("failed", "Invalid old password");
+          req.flash("failed", failedOldPass);
           res.redirect("/auth/changepass");
         }
         Auth032Model.changepass(
@@ -98,10 +105,10 @@ const Auth032Controller = {
           req.session.user.username,
           (err) => {
             if (err) {
-              req.flash("failed", `Password change failed`);
+              req.flash("failed", failedPass);
               console.log(err);
             } else {
-              req.flash("success", `Password changed successfully`);
+              req.flash("success", successPass);
             }
             res.redirect("/auth/changepass");
           }
@@ -128,15 +135,15 @@ const Auth032Controller = {
     upload.single('photo')(req, res, (err) => {
       if(err) {
         console.log(err);
-        req.flash("failed", "Upload file failed");
+        req.flash("failed", failedUpload);
         return res.redirect("/auth/changephoto");
       }
 
       Auth032Model.changephoto(req.session.user.username, req.file.originalname, req.session.user.photo, (err) => {
         if (err) {
-          req.flash("failed", "Photo change failed");
+          req.flash("failed", failedPhoto);
         } else {
-          req.flash("success", "Photo changed successfully");
+          req.flash("success", successPhoto);
           req.session.user.photo = req.file.originalname;
         }
       res.redirect("/auth/changephoto");

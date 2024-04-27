@@ -172,7 +172,7 @@ const Cats032Controller = {
         req.flash("failed", `Cat delete failed`);
       } else {
         req.flash("success", `Cat deleted successfully`);
-        res.redirect("/cats");
+        res.redirect("/cats?page=1");
       }
     });
   },
