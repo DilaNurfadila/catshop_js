@@ -1,5 +1,22 @@
 const Cats032Model = require("../models/cats032_model"); // call cat model
-const Categories032Model = require("../models/categories032_model"); // call cat model
+const Categories032Model = require("../models/categories032_model"); // call category model
+
+const {
+  successAddCat,
+  successUpdateCat,
+  successDeleteCat,
+  successSoldCat,
+  successPhoto
+} = require("../public/template/js/alertSuccess")
+const {
+  failedAddCat,
+  failedUpdateCat,
+  failedDeleteCat,
+  failedSaleCat,
+  failedFill,
+  failedPhoto,
+  failedUpload
+} = require("../public/template/js/alertFailed")
 
 // Multer
 const multer  = require('multer')
@@ -27,12 +44,16 @@ const Cats032Controller = {
       
       Cats032Model.pagination(page, limit, (cats) => {
         const totalPages = Math.ceil(totalItems / limit);
+        const endIndex = Math.min(totalItems, totalPages * limit);
   
         if (req.session && req.session.user) {
           res.render("cats032/cat_list_032", {
             cats,
             currentPage: page,
             totalPages,
+            totalItems,
+            endIndex,
+            user: req.session.user,
             success: req.flash("success"),
             failed: req.flash("failed"),
           });
@@ -52,6 +73,7 @@ const Cats032Controller = {
           res.render("cats032/cat_form_032", { 
             data, 
             categories,
+            user: req.session.user,
             failed: req.flash("failed"),
           });
         } else {
@@ -68,17 +90,17 @@ const Cats032Controller = {
     const { name_032, type_032, gender_032, age_032, price_032 } = req.body;
 
     if(!name_032 || !type_032 || !gender_032 || !age_032 || !price_032) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect("/cats/add");
     }
 
 
     Cats032Model.create(req.body, (err) => {
       if (err) {
-        req.flash("failed", `Cat add failed`);
+        req.flash("failed", failedAddCat);
       } else {
-        req.flash("success", `Cat added successfully`);
-        res.redirect("/cats");
+        req.flash("success", successAddCat);
+        res.redirect("/cats?page=1");
       }
     });
   },
@@ -91,6 +113,7 @@ const Cats032Controller = {
           res.render("cats032/cat_form_032", { 
             data: rows[0],
             categories,
+            user: req.session.user,
             failed: req.flash("failed"),
           });
         } else {
@@ -107,16 +130,16 @@ const Cats032Controller = {
     const id = req.params.id;
 
     if(!name_032 || !type_032 || !gender_032 || !age_032 || !price_032) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect(`/cats/edit/${id}`);
     }
 
     Cats032Model.update(req.body, req.params.id, (err) => {
       if (err) {
-        req.flash("failed", `Cat update failed`);
+        req.flash("failed", failedUpdateCat);
       } else {
-        req.flash("success", `Cat updated successfully`);
-        res.redirect("/cats");
+        req.flash("success", successUpdateCat);
+        res.redirect("/cats?page=1");
       }
     });
   },
@@ -128,6 +151,7 @@ const Cats032Controller = {
           res.render("cats032/cat_form_photo_032", { 
             data: rows[0],
             success: req.flash('success'),
+            user: req.session.user,
             failed: req.flash("failed"),
           });
         } else {
@@ -142,12 +166,12 @@ const Cats032Controller = {
     upload.single('photo')(req, res, (err) => {
       if(err) {
         console.log(err);
-        req.flash("failed", "Upload file failed");
+        req.flash("failed", failedUpload);
         return res.redirect(`/cats/changephoto/${req.params.id}`);
       }
 
       if(!photo_032) {
-        req.flash("failed", "Please fill in all fields");
+        req.flash("failed", failedFill);
         return res.redirect(`/cats/changephoto/${req.params.id}`);
       }
 
@@ -155,9 +179,9 @@ const Cats032Controller = {
         cat = rows[0];
         Cats032Model.changephoto(req.params.id, req.file.originalname, cat.photo_032, (err) => {
           if (err) {
-            req.flash("failed", "Photo change failed");
+            req.flash("failed", failedPhoto);
           } else {
-            req.flash("success", "Photo changed successfully");
+            req.flash("success", successPhoto);
           }
         res.redirect(`/cats/changephoto/${req.params.id}`);
         })
@@ -169,9 +193,9 @@ const Cats032Controller = {
   delete: (req, res) => {
     Cats032Model.delete(req.params.id, (err) => {
       if (err) {
-        req.flash("failed", `Cat delete failed`);
+        req.flash("failed", failedDeleteCat);
       } else {
-        req.flash("success", `Cat deleted successfully`);
+        req.flash("success", successDeleteCat);
         res.redirect("/cats?page=1");
       }
     });
@@ -184,6 +208,7 @@ const Cats032Controller = {
         if(req.session.user.usertype === 'Manager') {
           res.render("cats032/cat_sale_032", {
             data: rows[0],
+            user: req.session.user,
             failed: req.flash("failed"),
           });
         } else {
@@ -201,15 +226,15 @@ const Cats032Controller = {
     const id = req.params.id;
 
     if(!customer_name_032 || !customer_address_032 || !customer_phone_032) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect(`/cats/sale/${id}`);
     }
     Cats032Model.sale(req.body, req.params.id, (err) => {
       if (err) {
-        req.flash("failed", `Cat sale failed`);
+        req.flash("failed", failedSaleCat);
       } else {
-        req.flash("success", `Cat successfully sold`);
-        res.redirect("/cats");
+        req.flash("success", successSoldCat);
+        res.redirect("/cats?page=1");
       }
     });
   },
@@ -236,7 +261,7 @@ const Cats032Controller = {
       const cat = row[0];
       if (req.session && req.session.user) {
         if(req.session.user.usertype === 'Manager') {
-          res.render("cats032/cat_detail_032", { cat });
+          res.render("cats032/cat_detail_032", { cat, user: req.session.user, });
         } else {
           res.redirect("/")
         }

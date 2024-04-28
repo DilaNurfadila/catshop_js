@@ -1,4 +1,15 @@
 const Categories032Model = require("../models/categories032_model"); // call cat model
+const {
+  successAddCategory,
+  successUpdateCategory,
+  successDeleteCategory
+} = require("../public/template/js/alertSuccess")
+const {
+  failedAddCategory,
+  failedUpdateCategory,
+  failedDeleteCategory,
+  failedFill
+} = require("../public/template/js/alertFailed")
 
 // Create controller
 const Categories032Controller = {
@@ -36,15 +47,15 @@ const Categories032Controller = {
     const { category_name_032, description_032 } = req.body;
 
     if(!category_name_032 || !description_032) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect("/categories/add");
     }
 
     Categories032Model.create(req.body, (err) => {
       if (err) {
-        req.flash("failed", `Category add failed`);
+        req.flash("failed", failedAddCategory);
       } else {
-        req.flash("success", `Category added successfully`);
+        req.flash("success", successAddCategory);
         res.redirect("/categories");
       }
     });
@@ -70,15 +81,15 @@ const Categories032Controller = {
     const id = req.params.id;
 
     if(!category_name_032 || !description_032) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect(`/categories/edit/${id}`);
     }
 
     Categories032Model.update(req.body, req.params.id, (err) => {
       if (err) {
-        req.flash("failed", `Category update failed`);
+        req.flash("failed", failedUpdateCategory);
       } else {
-        req.flash("success", `Category updated successfully`);
+        req.flash("success", successUpdateCategory);
         res.redirect("/categories");
       }
     });
@@ -88,9 +99,9 @@ const Categories032Controller = {
   delete: (req, res) => {
     Categories032Model.delete(req.params.id, (err) => {
       if (err) {
-        req.flash("failed", `Category delete failed`);
+        req.flash("failed", failedDeleteCategory);
       } else {
-        req.flash("success", `Category deleted successfully`);
+        req.flash("success", successDeleteCategory);
         res.redirect("/categories");
       }
     });

@@ -1,90 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('../../public/template/head.ejs') -%>
-  <body>
-    <h1>CATSHOP 032</h1>
-    <h3>CATS LIST</h3>
-    <a href="/">
-      <h4>HOME</h4>
-    </a>
-    <hr />
-    <!-- Flash message -->
-    <% if (locals.success) { %>
-      <p style="color:green;">
-        <%= locals.success %>
-      </p>
-    <% } %>
-    <% if (locals.failed) { %>
-      <p style="color: red;">
-        <%= locals.failed %>
-      </p>
-    <% } %>
-    <a href="/cats/add">Add new cat</a>
-    <hr />
-    <table border="1">
-      <tr>
-        <th>No</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Gender</th>
-        <th>Age (month)</th>
-        <th>Price ($)</th>
-        <th>Photo</th>
-        <th colspan="3">Action</th>
-      </tr>
-      <% let startIndex = (currentPage - 1) * 10 + 1; 
-      cats.forEach((cat, index) => { %>
-      <tr>
-        <td><%= startIndex + index; %></td>
-        <td><%= cat.name_032 %></td>
-        <td><%= cat.type_032 %></td>
-        <td><%= cat.gender_032 %></td>
-        <td><%= cat.age_032 %></td>
-        <td><%= cat.price_032 %></td>
-        <td>
-          <p align="center"><img src="../../uploads/cats/<%= cat.photo_032 %>" alt="Cat photo" width="50" height="50"></p>
-          <p><a href="/cats/changephoto/<%= cat.id_032 %>">Change Photo</a></p>
-        </td>
-        <td><a href="/cats/edit/<%= cat.id_032 %>">Edit</a></td>
-        <td>
-          <a
-            href="/cats/delete/<%= cat.id_032 %>"
-            onclick="return confirm('Are you sure?')"
-            >Delete</a
+  <body class="dark:bg-gray-900">
+    <%- include('../../public/template/navbar.ejs') %>
+
+    <div class="w-3/4 mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+      <button
+        class="relative inline-flex items-center justify-center p-0.5 mb-10 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 mt-10"
+      >
+        <a
+          href="/cats/add"
+          class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+        >
+          Add new cat
+        </a>
+      </button>
+
+      <!-- Flash message -->
+      <% if (locals.success) { %> <%- locals.success %> <% } %> <% if
+      (locals.failed) { %> <%- locals.failed %> <% } %>
+
+      <table
+        class="w-full text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="py-3 text-center">No</th>
+            <th scope="col" class="px-6 py-3 text-center">Name</th>
+            <th scope="col" class="px-6 py-3 text-center">Type</th>
+            <th scope="col" class="px-6 py-3 text-center">Gender</th>
+            <th scope="col" class="px-6 py-3 text-center">Age (month)</th>
+            <th scope="col" class="px-6 py-3 text-center">Price ($)</th>
+            <th scope="col" class="px-6 py-3 text-center">Photo</th>
+            <th scope="col" class="px-6 py-3 text-center" colspan="3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let startIndex = (currentPage - 1) * 10 + 1; cats.forEach((cat,
+          index) => { %>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
-        </td>
-        <td>
-          <% if(cat.sold_032 == 1) { %> SOLD <% } else { %>
-          <a href="/cats/sale/<%= cat.id_032 %>">SALE</a>
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+            >
+              <%= startIndex + index; %>
+            </th>
+            <td class="px-6 py-4"><%= cat.name_032 %></td>
+            <td class="px-6 py-4"><%= cat.type_032 %></td>
+            <td class="px-6 py-4"><%= cat.gender_032 %></td>
+            <td class="px-6 py-4 text-center"><%= cat.age_032 %></td>
+            <td class="px-6 py-4 text-center"><%= cat.price_032 %></td>
+            <td class="px-6 py-4">
+              <p align="center">
+                <img
+                  class="h-auto max-w-xs"
+                  src="../../uploads/cats/<%= cat.photo_032 %>"
+                  alt="image description"
+                />
+              </p>
+              <div class="text-center mt-3">
+                <button
+                  type="button"
+                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                  <a href="/cats/changephoto/<%= cat.id_032 %>">Change Photo</a>
+                </button>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <a href="/cats/edit/<%= cat.id_032 %>">
+                <button
+                  type="button"
+                  class="text-white bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                  Edit
+                </button>
+              </a>
+            </td>
+            <td class="px-6 py-4">
+              <a
+                href="/cats/delete/<%= cat.id_032 %>"
+                onclick="return confirm('Are you sure?')"
+              >
+                <button
+                  type="button"
+                  class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                  Delete
+                </button>
+              </a>
+            </td>
+            <td class="px-6 py-4">
+              <% if(cat.sold_032 == 1) { %> SOLD <% } else { %>
+              <a
+                href="/cats/sale/<%= cat.id_032 %>"
+                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                <button
+                  type="button"
+                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                  SALE
+                </button>
+              </a>
+              <% } %>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <nav
+        class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 pb-4 mb-5"
+        aria-label="Table navigation"
+      >
+        <span
+          class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto"
+          >Showing
+          <span class="font-semibold text-gray-900 dark:text-white"
+            ><%= startIndex %>- <% if(currentPage >= 1 && currentPage <
+            totalPages) { %> <%= startIndex + 9 %> <% } else { %> <%= endIndex
+            %> <% } %>
+          </span>
+          of
+          <span class="font-semibold text-gray-900 dark:text-white"
+            ><%= totalItems %></span
+          ></span
+        >
+        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+          <% if(currentPage > 1 && currentPage <= totalPages) { %>
+          <li>
+            <a
+              href="/cats?page=<%= totalPages / totalPages %>"
+              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >First</a
+            >
+          </li>
+          <% } %> <% if(currentPage > 1) {%>
+          <li>
+            <a
+              href="/cats?page=<%= currentPage - 1 %>"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-30 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-7000 dark:hover:text-white"
+            >
+              <svg
+                class="w-3.5 h-3.5 me-2 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 5H1m0 0 4 4M1 5l4-4"
+                />
+              </svg>
+              Previous
+            </a>
+          </li>
+          <% } %> <% for(let i = currentPage - 2; i <= currentPage + 2; i++) {
+          %> <% if(i >= 1 && i <= totalPages) { %> <% if(currentPage === i) { %>
+          <li>
+            <a
+              aria-current="page"
+              class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+              ><%= i %></a
+            >
+          </li>
+          <% } else { %>
+          <li>
+            <a
+              href="/cats?page=<%= i %>"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-30 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-7000 dark:hover:text-white"
+              ><%= i %></a
+            >
+          </li>
+          <% } %> <% } %> <% } %> <% if(currentPage < totalPages) { %>
+          <li>
+            <a
+              href="/cats?page=<%= currentPage + 1 %>"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-30 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-7000 dark:hover:text-white"
+            >
+              Next
+              <svg
+                class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </a>
+          </li>
+          <% } %> <% if(currentPage >= 1 && currentPage < totalPages) { %>
+          <li>
+            <a
+              href="/cats?page=<%= totalPages %>"
+              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >Last</a
+            >
+          </li>
           <% } %>
-        </td>
-      </tr>
-      <% }); %>
-    </table>
+        </ul>
+      </nav>
+    </div>
 
-    <% if(currentPage > 1 && currentPage <= totalPages) { %>
-      <a href="/cats?page=<%= totalPages / totalPages %>" class="next-btn">&lt; First</a>
-    <% } %>
-    <% if(currentPage > 1) {%>
-      <a href="/cats?page=<%= currentPage - 1 %>" class="prev-btn">&lt;</a>
-    <% } %>
-
-    <% for(let i = currentPage - 2; i <= currentPage + 2; i++) { %>
-      <% if(i >= 1 && i <= totalPages) { %>
-        <% if(currentPage === i) { %>
-          <span class="current-page"><%= i %></span>
-        <% } else { %>
-          <a href="/cats?page=<%= i %>" class="page-link"><%= i %></a>
-        <% } %>
-      <% } %>
-    <% } %>
-
-    <% if(currentPage < totalPages) { %>
-      <a href="/cats?page=<%= currentPage + 1 %>" class="next-btn">&gt;</a>
-    <% } %>
-
-    <% if(currentPage >= 1 && currentPage < totalPages) { %>
-        <a href="/cats?page=<%= totalPages %>" class="next-btn">Last &gt;</a>
-    <% } %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="../template/darkmode/switchMode.js"></script>
   </body>
 </html>

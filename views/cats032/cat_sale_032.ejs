@@ -10,14 +10,10 @@
 
     <!-- Flash message -->
     <% if (locals.success) { %>
-        <p style="color:green;">
           <%= locals.success %>
-        </p>
       <% } %>
       <% if (locals.failed) { %>
-        <p style="color: red;">
           <%= locals.failed %>
-        </p>
       <% } %>
     <form action="" method="post">
         <table>
@@ -58,3 +54,7 @@
             </tr>
         </table>
     </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+</html>

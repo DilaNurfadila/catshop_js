@@ -1,4 +1,17 @@
-const Users032Model = require("../models/users032_model"); // call cat model
+const Users032Model = require("../models/users032_model"); // call user model
+const {
+  successAddUser,
+  successUpdateUser,
+  successDeleteUser,
+  successResetPass
+} = require("../public/template/js/alertSuccess")
+const {
+  failedAddUser,
+  failedUpdateUser,
+  failedDeleteUser,
+  failedFill,
+  failedResetPass
+} = require("../public/template/js/alertFailed")
 
 // Create controller
 const Users032Controller = {
@@ -44,15 +57,15 @@ const Users032Controller = {
     const { username_032, usertype_032, fullname_032 } = req.body;
 
     if(!username_032 || !usertype_032 || !fullname_032) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect("/users/add");
     }
     
     Users032Model.create(req.body, (err) => {
       if (err) {
-        req.flash("failed", `User add failed`);
+        req.flash("failed", failedAddUser);
       } else {
-        req.flash("success", `User added successfully`);
+        req.flash("success", successAddUser);
         res.redirect("/users");
       }
     });
@@ -82,15 +95,15 @@ const Users032Controller = {
     const id = req.params.id;
 
     if(!username_032 || !usertype_032 || !fullname_032) {
-      req.flash("failed", "Please fill in all fields");
+      req.flash("failed", failedFill);
       return res.redirect(`/users/edit/${id}`);
     }
 
     Users032Model.update(req.body, req.params.id, (err) => {
       if (err) {
-        req.flash("failed", `User update failed`);
+        req.flash("failed", failedUpdateUser);
       } else {
-        req.flash("success", `User updated successfully`);
+        req.flash("success", successUpdateUser);
         // Add session
         req.session.user.username = username_032;
         req.session.user.usertype = usertype_032;
@@ -104,9 +117,9 @@ const Users032Controller = {
   delete: (req, res) => {
     Users032Model.delete(req.params.id, (err) => {
       if (err) {
-        req.flash("failed", `User delete failed`);
+        req.flash("failed", failedDeleteUser);
       } else {
-        req.flash("success", `User deleted successfully`);
+        req.flash("success", successDeleteUser);
         res.redirect("/users");
       }
     });
@@ -120,9 +133,9 @@ const Users032Controller = {
       if (req.session && req.session.user) {
         Users032Model.resetpass(user.usertype_032, user.userid_032, (err) => {
           if (err) {
-            req.flash("failed", `Reset password failed`);
+            req.flash("failed", failedResetPass);
           } else {
-            req.flash("success", `Reset password successfully`);
+            req.flash("success", successResetPass);
             res.redirect("/users")
           }
         })

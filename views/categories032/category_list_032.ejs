@@ -10,14 +10,10 @@
     <hr />
     <!-- Flash message -->
     <% if (locals.success) { %>
-      <p style="color:green;">
-        <%= locals.success %>
-      </p>
+        <%- locals.success %>
     <% } %>
     <% if (locals.failed) { %>
-      <p style="color: red;">
-        <%= locals.failed %>
-      </p>
+        <%- locals.failed %>
     <% } %>
     <a href="/categories/add">Add new category</a>
     <hr />
@@ -44,5 +40,7 @@
       </tr>
       <% }); %>
     </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   </body>
 </html>

@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%- include('../public/template/head.ejs') -%>
 
-<%- include('../public/template/head.ejs') -%>
+  <body class="dark:bg-gray-900">
+    <%- include('../public/template/navbar.ejs') %>
 
-<body>
-    <h1 class="text-3xl font-bold underline">CATSHOP 032</h1>
-    <h3>APPS MENU</h3>
-    <hr>
-    <ul>
-        <li><a href="/cats?page=1">Manage Cats</a></li>
-        <li><a href="/categories">Manage Categories</a></li>
-        <% if (user.usertype === 'Manager') { %>
-            <li><a href="/users">Manage Users</a></li>
-            <li><a href="/cats/sales">Sales Report</a></li>
-        <% } %>
-    </ul>
-    <hr>
-    <h3>Welcome <%= user.fullname %>, you are login as <%= user.usertype %></h3>
-    <img src="../../uploads/users/<%= user.photo %>" alt="Photo Profile" width="128" height="128">
-    <ul>
-        <li><a href="/auth/changephoto">Change Photo</a></li>
-        <li><a href="/auth/changepass">Change Password</a></li>
-        <li><a href="/auth/logout">Logout</a></li>
-    </ul>
-</body>
+    <div class="flex items-center justify-center mt-10">
+      <div>
+        <h1
+          class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center mt-5"
+        >
+          Welcome
+          <span
+            class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600"
+            ><%= user.fullname %></span
+          >
+        </h1>
 
+        <img
+          class="h-auto max-w-sm mx-auto mt-5 rounded-full"
+          src="../../uploads/users/<%= user.photo %>"
+          alt="image description"
+        />
+
+        <p
+          class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center mt-5"
+        >
+          You are login as <%= user.usertype %>
+        </p>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="../template/darkmode/switchMode.js"></script>
+  </body>
 </html>
