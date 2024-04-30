@@ -75,6 +75,7 @@ const Auth032Controller = {
   changePassForm: (req, res) => {
     if (req.session && req.session.user) {
       res.render("auth032/form_password_032", {
+        user: req.session.user,
         success: req.flash("success"),
         failed: req.flash("failed"),
       });

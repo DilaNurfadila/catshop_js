@@ -19,6 +19,7 @@ const Categories032Controller = {
       if (req.session && req.session.user) {
         res.render("categories032/category_list_032", {
           categories,
+          user: req.session.user,
           success: req.flash("success"),
           failed: req.flash("failed"),
         });
@@ -34,6 +35,7 @@ const Categories032Controller = {
       if (req.session && req.session.user) {
         res.render("categories032/category_form_032", { 
           data,
+          user: req.session.user,
           failed: req.flash("failed"),
         });
       } else {
@@ -67,6 +69,7 @@ const Categories032Controller = {
       if (req.session && req.session.user) {
         res.render("categories032/category_form_032", { 
           data: rows[0],
+          user: req.session.user,
           failed: req.flash("failed"),
         });
       } else {

@@ -1,63 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%- include('../../public/template/head.ejs') %>
 
-<%- include('../../public/template/head.ejs') -%>
-
-<body>
-    <h1>CATSHOP 032</h1>
-    <h3>USER FORM</h3>
-    <hr>
-    <%
-    let username = ''
+  <body class="dark:bg-gray-900">
+    <%- include('../../public/template/navbar.ejs') %> 
+    
+    <% 
+    let username = '' 
     let usertype = ''
     let fullname = ''
-
-    if(data !== undefined) {
-        username = data.username_032
-        usertype = data.usertype_032
+    
+    if(data !== undefined) { 
+        username = data.username_032 
+        usertype = data.usertype_032 
         fullname = data.fullname_032
-    }
-    %>
+    } %>
 
     <!-- Flash message -->
     <% if (locals.success) { %>
-        <p style="color:green;">
-          <%= locals.success %>
-        </p>
-      <% } %>
-      <% if (locals.failed) { %>
-        <p style="color: red;">
-          <%= locals.failed %>
-        </p>
-      <% } %>
-    <form action="" method="post">
-        <table>
-            <tr>
-                <td>Username</td>
-                <td><input type="text" name="username_032" value="<%= username %>" required></td>
-            </tr>
-            <tr>
-                <td>Usertype</td>
-                <td>
-                    <input type="radio" name="usertype_032" value="Manager" <%= usertype == 'Manager' ? 'checked' : '' %> required> Manager
-                    <input type="radio" name="usertype_032" value="Cashier" <%= usertype == 'Cashier' ? 'checked' : '' %> required> Cashier
-                </td>
-            </tr>
-            <tr>
-                <td>Fullname</td>
-                <td><input type="text" name="fullname_032" value="<%= fullname %>" required></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="SAVE" name="submit">
-                    <a href="/users"><input type="button" value="CANCEL"></a>
-                </td>
-            </tr>
-        </table>
+    <p style="color: green"><%= locals.success %></p>
+    <% } %> <% if (locals.failed) { %>
+    <p style="color: red"><%= locals.failed %></p>
+    <% } %>
+    <form action="" method="post" class="max-w-md mx-auto mt-10">
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          name="username_032"
+          id="floating_username"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          value="<%= username %>"
+          required
+        />
+        <label
+          for="floating_username"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >Username</label
+        >
+      </div>
+
+      <div class="relative z-0 w-full mb-6 group">
+        <label
+          for="underline_select"
+          class="text-sm text-gray-500 dark:text-gray-400 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+          >Usertype</label
+        >
+        <div class="flex mt-2.5">
+          <div class="flex items-center me-4">
+            <input id="inline-radio" type="radio" value="Manager"
+            name="usertype_032" class="w-4 h-4 text-blue-600 bg-gray-100
+            border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600
+            dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700
+            dark:border-gray-600" <%= usertype == 'Manager' ? 'checked' : '' %>
+            required>
+            <label
+              for="inline-radio"
+              class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >Manager</label
+            >
+          </div>
+          <div class="flex items-center me-4">
+            <input id="inline-2-radio" type="radio" value="Female"
+            name="usertype_032" class="w-4 h-4 text-blue-600 bg-gray-100
+            border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600
+            dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700
+            dark:border-gray-600" <%= usertype == 'Cashier' ? 'checked' : '' %>
+            required>
+            <label
+              for="inline-2-radio"
+              class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >Cashier</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          name="fullname_032"
+          id="floating_fullname"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+          value="<%= fullname %>"
+          required
+        />
+        <label
+          for="floating_fullname"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          >Fullname</label
+        >
+      </div>
+
+      <button
+        type="submit"
+        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        name="submit"
+      >
+        Save
+      </button>
+
+      <a href="/users">
+        <button
+          type="button"
+          class="text-white bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          name="submit"
+        >
+          Cancel
+        </button>
+      </a>
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-</body>
-
+    <script src="/template/darkmode/switchMode.js"></script>
+  </body>
 </html>

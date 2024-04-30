@@ -4,43 +4,72 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('../../public/template/head.ejs') -%>
+<%- include('../../public/template/head.ejs') %>
 
-<body>
-    <h1>CATSHOP 032</h1>
-    <h3>CAT SOLD DETAIL</h3>
-    <a href="/cats/sales">
-        <h4>BACK</h4>
-    </a>
-    <hr>
-    <table>
-        <tr>
-            <td>Cat ID</td>
-            <td>: <%= cat.id_032 %></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>: <%= cat.name_032 %></td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td>: <%= cat.type_032 %></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td>: <%= cat.gender_032 %></td>
-        </tr>
-        <tr>
-            <td>Age (month)</td>
-            <td>: <%= cat.age_032 %></td>
-        </tr>
-        <tr>
-            <td>Price</td>
-            <td>: $<%= cat.price_032 %></td>
-        </tr>
-    </table>
+<body class="dark:bg-gray-900">
+    <%- include('../../public/template/navbar.ejs') %>
+
+    <div
+        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto w-full mt-10"
+      >
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Cat Id
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= cat.id_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Name
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= cat.name_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Type
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= cat.type_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Gender
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= cat.gender_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Age (month)
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= cat.age_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Price
+                        </th>
+                        <td class="px-6 py-4">
+                            $<%= cat.price_032; %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="/template/darkmode/switchMode.js"></script>
 </body>
 
 </html>

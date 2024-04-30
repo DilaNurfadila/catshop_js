@@ -244,7 +244,7 @@ const Cats032Controller = {
     Cats032Model.sales((sales) => {
       if (req.session && req.session.user) {
         if(req.session.user.usertype === 'Manager') {
-          res.render("cats032/sale_list_032", { sales });
+          res.render("cats032/sale_list_032", { sales, user: req.session.user, });
         } else {
           res.redirect("/")
         }

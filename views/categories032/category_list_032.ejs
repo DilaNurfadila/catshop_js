@@ -1,46 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('../../public/template/head.ejs') -%>
-  <body>
-    <h1>CATSHOP 032</h1>
-    <h3>CATEGORIES LIST</h3>
-    <a href="/">
-      <h4>HOME</h4>
-    </a>
-    <hr />
-    <!-- Flash message -->
-    <% if (locals.success) { %>
-        <%- locals.success %>
-    <% } %>
-    <% if (locals.failed) { %>
-        <%- locals.failed %>
-    <% } %>
-    <a href="/categories/add">Add new category</a>
-    <hr />
-    <table border="1">
-      <tr>
-        <th>No</th>
-        <th>Category Name</th>
-        <th>Description</th>
-        <th colspan="2">Action</th>
-      </tr>
-      <% let i = 1; categories.forEach(category => { %>
-      <tr>
-        <td><%= i++; %></td>
-        <td><%= category.category_name_032 %></td>
-        <td><%= category.description_032 %></td>
-        <td><a href="/categories/edit/<%= category.category_id_032 %>">Edit</a></td>
-        <td>
-          <a
-            href="/categories/delete/<%= category.category_id_032 %>"
-            onclick="return confirm('Are you sure?')"
-            >Delete</a
+  <body class="dark:bg-gray-900">
+    <%- include('../../public/template/navbar.ejs') %>
+
+    <div class="container mx-auto relative shadow-md sm:rounded-lg">
+      <button
+        class="relative inline-flex items-center justify-center p-0.5 mb-10 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 mt-10"
+      >
+        <a
+          href="/categories/add"
+          class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+        >
+          Add new category
+        </a>
+      </button>
+
+      <!-- Flash message -->
+      <% if (locals.success) { %> <%- locals.success %> <% } %> <% if
+      (locals.failed) { %> <%- locals.failed %> <% } %>
+
+      <div class="overflow-x-auto">
+        <table
+          class="w-full text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
           >
-        </td>
-      </tr>
-      <% }); %>
-    </table>
+            <tr>
+              <th scope="col" class="py-3 text-center">No</th>
+              <th scope="col" class="px-6 py-3 text-center">Category Name</th>
+              <th scope="col" class="px-6 py-3 text-center">Description</th>
+              <th scope="col" class="px-6 py-3 text-center" colspan="2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% let i = 1; categories.forEach(category => { %>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            >
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+              >
+                <%= i++; %>
+              </th>
+              <td class="px-6 py-4"><%= category.category_name_032 %></td>
+              <td class="px-6 py-4"><%= category.description_032 %></td>
+              <div
+                class="flex flex-col items-center lg:flex-row lg:items-center lg:justify-center"
+              >
+                <td class="px-6 py-4">
+                  <a href="/categories/edit/<%= category.category_id_032 %>">
+                    <button
+                      type="button"
+                      class="text-white bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    >
+                      Edit
+                    </button>
+                  </a>
+                </td>
+                <td class="px-6 py-4">
+                  <a
+                    href="/categories/delete/<%= category.category_id_032 %>"
+                    onclick="return confirm('Are you sure?')"
+                  >
+                    <button
+                      type="button"
+                      class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    >
+                      Delete
+                    </button>
+                  </a>
+                </td>
+                
+              </div>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="../template/darkmode/switchMode.js"></script>
   </body>
 </html>

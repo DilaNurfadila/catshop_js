@@ -22,6 +22,7 @@ const Users032Controller = {
         if(req.session.user.usertype === 'Manager') {
           res.render("users032/user_list_032", {
             users,
+            user: req.session.user,
             success: req.flash("success"),
             failed: req.flash("failed"),
           });
@@ -41,6 +42,7 @@ const Users032Controller = {
         if(req.session.user.usertype === 'Manager') {
           res.render("users032/user_form_032", { 
             data,
+            user: req.session.user,
             failed: req.flash("failed"), 
           });
         } else {
@@ -78,6 +80,7 @@ const Users032Controller = {
         if(req.session.user.usertype === 'Manager') {
           res.render("users032/user_form_032", { 
             data: rows[0],
+            user: req.session.user,
             failed: req.flash("failed"),
           });
         } else {

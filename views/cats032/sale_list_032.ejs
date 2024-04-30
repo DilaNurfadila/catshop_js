@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('../../public/template/head.ejs') -%>
+  <%- include('../../public/template/head.ejs') %>
 
-  <body>
-    <h1>CATSHOP 032</h1>
-    <h3>SALES LIST</h3>
-    <a href="/">
-      <h4>HOME</h4>
-    </a>
-    <hr />
-    <table border="1">
-      <tr>
-        <th>No</th>
-        <th>Sale ID</th>
-        <th>Sale Date</th>
-        <th>Cat Name</th>
-        <th>Customer Name</th>
-        <th>Customer Address</th>
-        <th>Customer Phone</th>
-      </tr>
-      <% let i = 1; sales.forEach(sale => { %>
-      <tr>
-        <td><%= i++; %></td>
-        <td><%= sale.sale_id_032 %></td>
-        <td>
-            <%
-            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; 
-            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            
-            const d = new Date(sale.sale_date_032);
-            let day = days[d.getDay()]; 
-            let month = months[d.getMonth()];
-            %>
-            <%= day %>, <%= d.getDate() %> <%= month %> <%= d.getFullYear() %>
-        </td>
-        <td>
-          <a href="/cats/getCatSold/<%= sale.cat_id_032 %>"
-            ><%= sale.name_032 %></a
+  <body class="dark:bg-gray-900">
+    <%- include('../../public/template/navbar.ejs') %>
+
+    <div class="container mx-auto relative shadow-md sm:rounded-lg mt-10">
+      <div class="overflow-x-auto">
+        <table
+          class="w-full text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
           >
-        </td>
-        <td><%= sale.customer_name_032 %></td>
-        <td><%= sale.customer_address_032 %></td>
-        <td><%= sale.customer_phone_032 %></td>
-      </tr>
-      <% }) %>
-    </table>
+            <tr>
+              <th scope="col" class="py-3 text-center">No</th>
+              <th scope="col" class="px-6 py-3 text-center">Sale ID</th>
+              <th scope="col" class="px-6 py-3 text-center">Sale Date</th>
+              <th scope="col" class="px-6 py-3 text-center">Cat Name</th>
+              <th scope="col" class="px-6 py-3 text-center">Customer Name</th>
+              <th scope="col" class="px-6 py-3 text-center">Customer Address</th>
+              <th scope="col" class="px-6 py-3 text-center">Customer Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% let i = 1; sales.forEach(sale => { %>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            >
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+              >
+                <%= i++; %>
+              </th>
+              <td class="px-6 py-4"><%= sale.sale_id_032 %></td>
+              <td class="px-6 py-4">
+                <%
+                  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; 
+                  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                  
+                  const d = new Date(sale.sale_date_032);
+                  let day = days[d.getDay()]; 
+                  let month = months[d.getMonth()];
+                %>
+                <%= day %>, <%= d.getDate() %> <%= month %> <%= d.getFullYear() %>
+              </td>
+              <td class="px-6 py-4">
+                <a href="/cats/getCatSold/<%= sale.cat_id_032 %>"><%= sale.name_032 %></a>
+              </td>
+              <td><%= sale.customer_name_032 %></td>
+              <td><%= sale.customer_address_032 %></td>
+              <td><%= sale.customer_phone_032 %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="/template/darkmode/switchMode.js"></script>
   </body>
 </html>

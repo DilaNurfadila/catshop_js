@@ -1,60 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+  <%- include('../../public/template/head.ejs') %>
 
-<%- include('../../public/template/head.ejs') -%>
-
-<body>
-    <h1>CATSHOP 032</h1>
-    <h3>CAT SALE FORM</h3>
-    <hr>
+  <body class="dark:bg-gray-900">
+    <%- include('../../public/template/navbar.ejs') %>
 
     <!-- Flash message -->
-    <% if (locals.success) { %>
-          <%= locals.success %>
-      <% } %>
-      <% if (locals.failed) { %>
-          <%= locals.failed %>
-      <% } %>
-    <form action="" method="post">
-        <table>
-            <tr>
-                <td>Cat Id</td>
-                <td>: <%= data.id_032; %></td>
-            </tr>
-            <tr>
-                <td>Cat Name</td>
-                <td>: <%= data.name_032; %></td>
-            </tr>
-            <tr>
-                <td>Cat Type</td>
-                <td>: <%= data.type_032; %></td>
-            </tr>
-            <tr>
-                <td>Cat Price</td>
-                <td>: $<%= data.price_032; %></td>
-            </tr>
-            <tr>
-                <td>Customer Name</td>
-                <td><input type="text" name="customer_name_032" /></td>
-            </tr>
-            <tr>
-                <td>Customer Address</td>
-                <td><textarea name="customer_address_032" cols="30" rows="10"></textarea></td>
-            </tr>
-            <tr>
-                <td>Customer Phone</td>
-                <td><input type="text" name="customer_phone_032" /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" name="submit" value="SALE">
-                    <a href="/cats?page=1"><input type="button" value="CANCEL"></a>
-                </td>
-            </tr>
-        </table>
+    <% if (locals.success) { %> <%= locals.success %> <% } %> <% if
+    (locals.failed) { %> <%= locals.failed %> <% } %>
+    <div class="flex flex-col justify-center mt-10">
+      <div
+        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto w-full"
+      >
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Cat Id
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= data.id_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Cat Name
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= data.name_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Cat Type
+                        </th>
+                        <td class="px-6 py-4">
+                            <%= data.type_032; %>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Cat Price
+                        </th>
+                        <td class="px-6 py-4">
+                            $<%= data.price_032; %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <form action="" method="post" class="max-w-md mx-auto mt-10 w-full">
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="customer_name_032" id="floating_csname" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+            <label for="floating_csname" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer Name</label>
+        </div>
+
+        <div class="relative z-0 w-full mb-6 group">
+            <div class="relative z-0 w-full mb-5 group">
+            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Customer Address" name="customer_address_032"></textarea>
+
+            </div>
+        </div>
+
+        <div class="relative z-0 w-full mb-6 group">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" name="customer_phone_032" id="floating_csphone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_csphone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Customer Phone</label>
+            </div>
+        </div>
+
+        <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" name="submit">Sale</button>
+
+        <a href="/cats?page=1">
+            <button type="button" class="text-white bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" name="submit">Cancel</button>
+        </a>
     </form>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-</body>
+    <script src="/template/darkmode/switchMode.js"></script>
+  </body>
 </html>
